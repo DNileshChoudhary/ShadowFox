@@ -1,231 +1,741 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Nilesh | Portfolio</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Nilesh Choudhary | Developer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:        #080d14;
+      --surface:   #0d1520;
+      --border:    #1a2740;
+      --accent:    #4f9eff;
+      --accent2:   #7c3aed;
+      --text:      #e2e8f0;
+      --muted:     #64748b;
+      --card:      #0d1a2e;
+    }
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
-        }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
-        body {
-            background: #0f172a;
-            color: #e5e7eb;
-            line-height: 1.6;
-        }
+    html { scroll-behavior: smooth; }
 
-        header {
-            background: #020617;
-            padding: 20px 10%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+    }
 
-        header h1 {
-            color: #38bdf8;
-        }
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 8%;
+      background: rgba(8,13,20,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
 
-        nav a {
-            color: #e5e7eb;
-            text-decoration: none;
-            margin-left: 20px;
-            font-weight: bold;
-        }
+    .logo {
+      font-family: 'Fira Code', monospace;
+      font-size: 1.1rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
 
-        nav a:hover {
-            color: #38bdf8;
-        }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
 
-        section {
-            padding: 60px 10%;
-        }
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 0 8%;
+      position: relative;
+      overflow: hidden;
+    }
 
-        /* HERO */
-        .hero {
-            text-align: center;
-            padding-top: 80px;
-        }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(79,158,255,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
 
-        .profile-pic {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid #38bdf8;
-            margin-bottom: 20px;
-        }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -100px; left: 20%;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(124,58,237,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
 
-        .hero h2 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
+    .hero-inner { max-width: 680px; position: relative; z-index: 1; }
 
-        .hero span {
-            color: #38bdf8;
-        }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.8rem;
+      color: var(--accent);
+      background: rgba(79,158,255,0.08);
+      border: 1px solid rgba(79,158,255,0.2);
+      border-radius: 4px;
+      padding: 6px 14px;
+      margin-bottom: 28px;
+      letter-spacing: 0.05em;
+    }
 
-        .hero p {
-            margin-top: 15px;
-            font-size: 1.1rem;
-        }
+    .hero-tag::before { content: '▶'; font-size: 0.6rem; }
 
-        .section-title {
-            font-size: 2rem;
-            margin-bottom: 30px;
-            border-left: 5px solid #38bdf8;
-            padding-left: 10px;
-        }
+    .hero h1 {
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
 
-        .skills, .projects {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
+    .hero h1 .name {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
-        .card {
-            background: #020617;
-            padding: 20px;
-            border-radius: 10px;
-            transition: transform 0.3s;
-        }
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 36px;
+    }
 
-        .card:hover {
-            transform: translateY(-5px);
-        }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
 
-        .card h3 {
-            color: #38bdf8;
-            margin-bottom: 10px;
-        }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
 
-        /* CONTACT */
-        .contact p {
-            margin-bottom: 12px;
-        }
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+    }
+    .btn-primary:hover { background: #74b3ff; transform: translateY(-1px); }
 
-        .contact a {
-            color: #38bdf8;
-            text-decoration: none;
-            font-weight: bold;
-        }
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
 
-        .contact a:hover {
-            text-decoration: underline;
-        }
+    /* ── SECTION COMMON ── */
+    section { padding: 90px 8%; }
 
-        footer {
-            text-align: center;
-            padding: 20px;
-            background: #020617;
-            margin-top: 40px;
-        }
+    .section-label {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
 
-        @media (max-width: 600px) {
-            header {
-                flex-direction: column;
-            }
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 48px;
+      color: var(--text);
+    }
 
-            nav {
-                margin-top: 10px;
-            }
-        }
-    </style>
+    /* ── ABOUT ── */
+    #about { background: var(--surface); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+    }
+
+    .about-text p span { color: var(--text); font-weight: 500; }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      transition: border-color 0.2s;
+    }
+    .stat-card:hover { border-color: var(--accent); }
+
+    .stat-num {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      font-family: 'Fira Code', monospace;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .skill-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .skill-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+
+    .skill-card-header {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .skill-icon {
+      width: 36px; height: 36px;
+      background: rgba(79,158,255,0.1);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .skill-card h3 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .skill-tags {
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+
+    .tag {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      background: rgba(79,158,255,0.08);
+      border: 1px solid rgba(79,158,255,0.15);
+      border-radius: 4px;
+      padding: 3px 9px;
+    }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--surface); }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      display: flex; flex-direction: column;
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .project-card:hover { border-color: rgba(79,158,255,0.4); transform: translateY(-4px); }
+    .project-card:hover::before { opacity: 1; }
+
+    .project-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      background: rgba(124,58,237,0.1);
+      border: 1px solid rgba(124,58,237,0.2);
+      border-radius: 4px;
+      padding: 3px 8px;
+      margin-bottom: 14px;
+      width: fit-content;
+    }
+
+    .project-badge.hackathon {
+      color: #f59e0b;
+      background: rgba(245,158,11,0.1);
+      border-color: rgba(245,158,11,0.2);
+    }
+
+    .project-card h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .project-card p {
+      font-size: 0.875rem;
+      color: var(--muted);
+      flex: 1;
+      margin-bottom: 20px;
+    }
+
+    .project-footer {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+    }
+
+    .project-stack {
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+
+    .project-link {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .project-link:hover { text-decoration: underline; }
+
+    /* ── CODING PROFILES ── */
+    .profiles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+    }
+
+    .profile-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 22px;
+      display: flex; align-items: center; gap: 14px;
+      text-decoration: none;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .profile-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+    .profile-logo {
+      font-size: 1.4rem;
+      width: 40px; text-align: center;
+    }
+
+    .profile-info h4 {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .profile-info span {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.78rem;
+      color: var(--accent);
+    }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--surface); }
+
+    .contact-inner {
+      max-width: 560px;
+    }
+
+    .contact-inner p {
+      color: var(--muted);
+      margin-bottom: 32px;
+      font-size: 0.95rem;
+    }
+
+    .contact-links {
+      display: flex; flex-direction: column; gap: 14px;
+    }
+
+    .contact-item {
+      display: flex; align-items: center; gap: 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 20px;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.2s;
+    }
+    .contact-item:hover { border-color: var(--accent); }
+
+    .contact-item-icon { font-size: 1.2rem; }
+
+    .contact-item-info { display: flex; flex-direction: column; }
+    .contact-item-info span:first-child { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+    .contact-item-info span:last-child { font-size: 0.875rem; font-weight: 500; color: var(--accent); }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 28px;
+      border-top: 1px solid var(--border);
+      font-family: 'Fira Code', monospace;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 16px 5%; }
+      .nav-links { gap: 18px; }
+      section { padding: 70px 5%; }
+      .hero { padding: 0 5%; }
+      .about-grid { grid-template-columns: 1fr; gap: 36px; }
+    }
+
+    @media (max-width: 480px) {
+      .nav-links a { font-size: 0.78rem; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
 </head>
-
 <body>
 
-<header>
-    <h1>Nilesh</h1>
-    <nav>
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-    </nav>
-</header>
+<!-- NAV -->
+<nav>
+  <div class="logo">nilesh.dev</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#profiles">Profiles</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
 
+<!-- HERO -->
 <section class="hero">
-    <img src="profile.jpg" alt="Nilesh Photo" class="profile-pic">
-    <h2>Hi, I'm <span>Nilesh</span></h2>
-    <p>BTech CSE Student | Java | DSA | Web Development</p>
-</section>
-
-<section id="about">
-    <h2 class="section-title">About Me</h2>
-    <p>
-        I am a Computer Science Engineering student At IARE with strong interest in
-        Data Structures, Algorithms, Java programming, and Web Development.
-        I enjoy solving problems and building efficient solutions.
+  <div class="hero-inner">
+    <div class="hero-tag">B.Tech CSE · IARE Hyderabad</div>
+    <h1>Hi, I'm <span class="name">Nilesh Choudhary</span></h1>
+    <p class="hero-desc">
+      Full-stack developer and competitive programmer. I build secure, AI-integrated web applications and love solving hard problems.
     </p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="#contact" class="btn btn-outline">Get in Touch</a>
+    </div>
+  </div>
 </section>
 
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">// about me</div>
+  <h2 class="section-title">Who I Am</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I'm a <span>Pre-final year B.Tech CSE student at IARE, Hyderabad</span> with a GPA of 9.37/10. I focus on building full-stack applications with React.js and Spring Boot, and I'm deeply interested in AI-integrated systems and on-device ML.</p>
+      <p>Recently shortlisted for the <span>Qualcomm Snapdragon Multiverse Hackathon</span> at Qualcomm's Bengaluru campus, where I built a real-time voice-preserving translation system running Whisper on the Hexagon NPU.</p>
+      <p>Outside of building, I actively solve DSA problems across multiple platforms — over <span>550+ problems</span> solved combined across LeetCode, GFG, CodeChef and more.</p>
+    </div>
+    <div class="about-stats">
+      <div class="stat-card">
+        <div class="stat-num">9.37</div>
+        <div class="stat-label">GPA / 10.0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">550+</div>
+        <div class="stat-label">Problems Solved</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">4+</div>
+        <div class="stat-label">Projects Built</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">3+</div>
+        <div class="stat-label">Certifications</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
 <section id="skills">
-    <h2 class="section-title">Skills</h2>
-    <div class="skills">
-        <div class="card">
-            <h3>Programming</h3>
-            <p>Java, C, Python</p>
-        </div>
-        <div class="card">
-            <h3>Core CS</h3>
-            <p>DSA, OS, DBMS, CN, TOC</p>
-        </div>
-        <div class="card">
-            <h3>Web</h3>
-            <p>HTML, CSS, JavaScript</p>
-        </div>
+  <div class="section-label">// technical skills</div>
+  <h2 class="section-title">What I Work With</h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-card-header">
+        <div class="skill-icon">💻</div>
+        <h3>Languages</h3>
+      </div>
+      <div class="skill-tags">
+        <span class="tag">Java</span>
+        <span class="tag">Python</span>
+        <span class="tag">JavaScript</span>
+      </div>
     </div>
+    <div class="skill-card">
+      <div class="skill-card-header">
+        <div class="skill-icon">🌐</div>
+        <h3>Web Development</h3>
+      </div>
+      <div class="skill-tags">
+        <span class="tag">React.js</span>
+        <span class="tag">HTML</span>
+        <span class="tag">CSS</span>
+        <span class="tag">REST APIs</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-header">
+        <div class="skill-icon">⚙️</div>
+        <h3>Backend & Security</h3>
+      </div>
+      <div class="skill-tags">
+        <span class="tag">Spring Boot</span>
+        <span class="tag">Spring Security</span>
+        <span class="tag">JWT</span>
+        <span class="tag">Google OAuth</span>
+        <span class="tag">Flask</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-header">
+        <div class="skill-icon">🤖</div>
+        <h3>AI / ML & Data</h3>
+      </div>
+      <div class="skill-tags">
+        <span class="tag">scikit-learn</span>
+        <span class="tag">pandas</span>
+        <span class="tag">NumPy</span>
+        <span class="tag">Whisper</span>
+        <span class="tag">Qualcomm AI Hub</span>
+        <span class="tag">Sarvam AI</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-header">
+        <div class="skill-icon">🗄️</div>
+        <h3>Database & Tools</h3>
+      </div>
+      <div class="skill-tags">
+        <span class="tag">MySQL</span>
+        <span class="tag">Git</span>
+        <span class="tag">GitHub</span>
+        <span class="tag">VS Code</span>
+        <span class="tag">IntelliJ IDEA</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-header">
+        <div class="skill-icon">🧠</div>
+        <h3>Core Concepts</h3>
+      </div>
+      <div class="skill-tags">
+        <span class="tag">DSA</span>
+        <span class="tag">OOP</span>
+        <span class="tag">ML Fundamentals</span>
+        <span class="tag">Computer Networks</span>
+        <span class="tag">OS</span>
+        <span class="tag">On-Device AI</span>
+      </div>
+    </div>
+  </div>
 </section>
 
+<!-- PROJECTS -->
 <section id="projects">
-    <h2 class="section-title">Projects</h2>
-    <div class="projects">
-        <div class="card">
-            <h3>Portfolio Website</h3>
-            <p>Personal responsive portfolio using HTML & CSS.</p>
+  <div class="section-label">// projects</div>
+  <h2 class="section-title">Things I've Built</h2>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <span class="project-badge hackathon">🏆 Qualcomm Hackathon</span>
+      <h3>EchoTranslate</h3>
+      <p>Real-time multilingual speech translation that preserves the speaker's voice identity and emotional tone across Hindi, Telugu & Kannada ↔ English. Runs Whisper on-device on the Hexagon NPU via Qualcomm AI Hub.</p>
+      <div class="project-footer">
+        <div class="project-stack">
+          <span class="tag">Python</span>
+          <span class="tag">Whisper</span>
+          <span class="tag">QNN</span>
+          <span class="tag">Sarvam AI</span>
         </div>
-        <div class="card">
-            <h3>DSA Problems</h3>
-            <p>Optimized Java solutions for common DSA problems.</p>
-        </div>
-        <div class="card">
-            <h3>Matrix Algorithms</h3>
-            <p>Implemented Strassen and traditional multiplication.</p>
-        </div>
+        <a href="https://github.com/DNileshChoudhary/EchoTranslate" target="_blank" class="project-link">GitHub →</a>
+      </div>
     </div>
+
+    <div class="project-card">
+      <span class="project-badge">Full Stack</span>
+      <h3>Smart Task Management System</h3>
+      <p>Full-stack task portal with JWT + Google OAuth auth, AI-powered task analysis via Groq API, drag-and-drop, calendar sync, file attachments, and an Admin Dashboard with analytics.</p>
+      <div class="project-footer">
+        <div class="project-stack">
+          <span class="tag">React.js</span>
+          <span class="tag">Spring Boot</span>
+          <span class="tag">MySQL</span>
+          <span class="tag">Groq API</span>
+        </div>
+        <a href="https://stms-xi.vercel.app/" target="_blank" class="project-link">Live →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <span class="project-badge">ML / Python</span>
+      <h3>Grade Predictor</h3>
+      <p>End-to-end ML web app predicting student grades from attendance and assignment scores. Full pipeline: data preprocessing with pandas & NumPy, scikit-learn model training, and Flask REST API deployment.</p>
+      <div class="project-footer">
+        <div class="project-stack">
+          <span class="tag">Python</span>
+          <span class="tag">Flask</span>
+          <span class="tag">scikit-learn</span>
+          <span class="tag">pandas</span>
+        </div>
+        <a href="https://github.com/DNileshChoudhary/GradePredictor" target="_blank" class="project-link">GitHub →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <span class="project-badge">Java</span>
+      <h3>Java Console Applications</h3>
+      <p>Rock-Paper-Scissors game and a Pension/Income Tax Calculator built in Java. Focus on control flow, OOP design patterns, and input validation.</p>
+      <div class="project-footer">
+        <div class="project-stack">
+          <span class="tag">Java</span>
+          <span class="tag">OOP</span>
+        </div>
+        <a href="https://github.com/DNileshChoudhary" target="_blank" class="project-link">GitHub →</a>
+      </div>
+    </div>
+
+  </div>
 </section>
 
+<!-- CODING PROFILES -->
+<section id="profiles">
+  <div class="section-label">// competitive programming</div>
+  <h2 class="section-title">Coding Profiles</h2>
+  <div class="profiles-grid">
+    <a href="https://leetcode.com/u/nilesh_choudhary/" target="_blank" class="profile-card">
+      <div class="profile-logo">⚡</div>
+      <div class="profile-info">
+        <h4>LeetCode</h4>
+        <span>240+ solved</span>
+      </div>
+    </a>
+    <a href="https://www.geeksforgeeks.org/user/nilesh_choudhary/" target="_blank" class="profile-card">
+      <div class="profile-logo">🟢</div>
+      <div class="profile-info">
+        <h4>GeeksforGeeks</h4>
+        <span>300+ solved</span>
+      </div>
+    </a>
+    <a href="https://www.codechef.com/users/d_nilesh" target="_blank" class="profile-card">
+      <div class="profile-logo">👨‍🍳</div>
+      <div class="profile-info">
+        <h4>CodeChef</h4>
+        <span>59 solved</span>
+      </div>
+    </a>
+    <a href="https://www.hackerrank.com/profile/choudharynilesh5" target="_blank" class="profile-card">
+      <div class="profile-logo">🌴</div>
+      <div class="profile-info">
+        <h4>HackerRank</h4>
+        <span>20+ solved</span>
+      </div>
+    </a>
+    <a href="https://codeforces.com/profile/choudharynilesh60309" target="_blank" class="profile-card">
+      <div class="profile-logo">🔵</div>
+      <div class="profile-info">
+        <h4>Codeforces</h4>
+        <span>6 solved</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- CONTACT -->
 <section id="contact">
-    <h2 class="section-title">Contact</h2>
-    <div class="contact">
-        <p>📧 Email:
-            <a href="mailto:choudharynilesh60309@gmail.com">
-                choudharynilesh60309@gmail.com
-            </a>
-        </p>
-
-        <p>💻 GitHub:
-            <a href="https://github.com/DNileshChoudhary" target="_blank">
-                github.com/DNileshChoudhary
-            </a>
-        </p>
-
-        <p>🔗 LinkedIn:
-            <a href="https://www.linkedin.com/in/nilesh-choudhary-343734248" target="_blank">
-                linkedin.com/in/nilesh-choudhary
-            </a>
-        </p>
+  <div class="section-label">// contact</div>
+  <h2 class="section-title">Get in Touch</h2>
+  <div class="contact-inner">
+    <p>I'm open to internships, collaborations, and interesting project ideas. Feel free to reach out.</p>
+    <div class="contact-links">
+      <a href="mailto:choudharynilesh60309@gmail.com" class="contact-item">
+        <span class="contact-item-icon">📧</span>
+        <div class="contact-item-info">
+          <span>Email</span>
+          <span>choudharynilesh60309@gmail.com</span>
+        </div>
+      </a>
+      <a href="https://github.com/DNileshChoudhary" target="_blank" class="contact-item">
+        <span class="contact-item-icon">💻</span>
+        <div class="contact-item-info">
+          <span>GitHub</span>
+          <span>github.com/DNileshChoudhary</span>
+        </div>
+      </a>
+      <a href="https://www.linkedin.com/in/nilesh-choudhary-343734248" target="_blank" class="contact-item">
+        <span class="contact-item-icon">🔗</span>
+        <div class="contact-item-info">
+          <span>LinkedIn</span>
+          <span>linkedin.com/in/nilesh-choudhary</span>
+        </div>
+      </a>
     </div>
+  </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
-    <p>© 2026 Nilesh | All Rights Reserved</p>
+  <p>© 2026 Nilesh Choudhary &nbsp;·&nbsp; Built with HTML & CSS</p>
 </footer>
 
 </body>
